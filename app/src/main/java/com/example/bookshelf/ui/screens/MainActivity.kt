@@ -3,6 +3,12 @@ package com.example.bookshelf.ui.screens
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.example.bookshelf.ui.BookShelfApp
+
 
 //
 import com.example.bookshelf.ui.theme.BookshelfTheme
@@ -11,11 +17,15 @@ import com.example.bookshelf.ui.theme.BookshelfTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //DynamicColors.applyToActivitiesIfAvailable(this);
+
         setContent {
             BookshelfTheme {
-                //val viewModel : HomeViewModel = viewModel(factory = HomeViewModel.Factory)
-                //BookshelfApp(viewModel)
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                   BookShelfApp()
+                }
 
 
             }
