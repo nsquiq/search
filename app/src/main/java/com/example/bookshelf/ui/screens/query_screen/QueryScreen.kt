@@ -39,7 +39,7 @@ fun QueryScreen(
             onValueChange = {viewModel.updateQuery(it)  },
             singleLine = true,
             placeholder = {
-                Text(text = stringResource(R.string.app_name))
+                Text(text = stringResource(R.string.search_placeholder))
             },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
@@ -48,6 +48,7 @@ fun QueryScreen(
             keyboardActions = KeyboardActions(
                 onSearch = {
                     focusManager.clearFocus()
+                    viewModel.getBooks(uiStateQuery.query)
 
                 }
             ),
@@ -66,10 +67,11 @@ fun QueryScreen(
         if (uiStateQuery.searchStarted) {
 
 
-            // Only one option for Success, directly invoke GridList
-            if (uiState is QueryUiState.Success) {
+                 if (uiState is QueryUiState.Success) {
                 GridList(
-
+                    viewModel = viewModel,
+                    bookshelfList = uiState.bookshelfList,
+                    modifier = modifier,
                     )
             }
         }

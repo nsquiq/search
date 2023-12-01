@@ -57,8 +57,7 @@ class QueryViewModel(
             _uiState.value = QueryUiState.Loading
 
             _uiState.value = try {
-                // Notes: List<Book>? NULLABLE
-                val books = bookshelfRepository.getBooks(query)
+                  val books = bookshelfRepository.getBooks(query)
                 if (books == null) {
                     QueryUiState.Error
                 } else if (books.isEmpty()){
