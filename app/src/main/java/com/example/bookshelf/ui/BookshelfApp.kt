@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bookshelf.R
 import com.example.bookshelf.ui.screens.query_screen.QueryScreen
-
+import com.example.bookshelf.ui.screens.query_screen.QueryViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,8 +35,11 @@ fun BookShelfApp(){
                 .fillMaxSize()
                 .padding(it)
         ) {
+            val viewModel : QueryViewModel = viewModel(factory = QueryViewModel.Factory)
+
             QueryScreen(
-              )
+                viewModel = viewModel,
+                retryAction = { viewModel.getBooks() })
         }
     }
 }

@@ -21,10 +21,13 @@ import com.example.bookshelf.R
 @Composable
 fun QueryScreen(
     modifier: Modifier = Modifier,
-
+    viewModel:QueryViewModel,
     retryAction: () -> Unit,
 
     ) {
+
+    val uiState = viewModel.uiState.collectAsState().value
+    val uiStateQuery = viewModel.uiStateSearch.collectAsState().value
 
 
     val focusManager = LocalFocusManager.current
@@ -32,8 +35,8 @@ fun QueryScreen(
 
     Column {
         OutlinedTextField(
-            value = "" ,
-            onValueChange = {  },
+            value = uiStateQuery.query ,
+            onValueChange = {viewModel.updateQuery(it)  },
             singleLine = true,
             placeholder = {
                 Text(text = stringResource(R.string.app_name))
@@ -52,7 +55,7 @@ fun QueryScreen(
                 .onKeyEvent { e ->
                     if (e.nativeKeyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
                         focusManager.clearFocus()
-
+                        viewModel.getBooks(uiStateQuery.query)
                     }
                     false
                 }
@@ -60,9 +63,16 @@ fun QueryScreen(
                 .padding(start = 8.dp, end = 8.dp, top = 8.dp)
         )
 
+        if (uiStateQuery.searchStarted) {
 
 
+            // Only one option for Success, directly invoke GridList
+            if (uiState is QueryUiState.Success) {
+                GridList(
 
+                    )
             }
         }
 
+    }
+}
